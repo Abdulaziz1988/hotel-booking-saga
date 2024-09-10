@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Hotel Booking Saga</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 20px;
+      }
+      h1 {
+        text-align: center;
+      }
+      form {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+      }
+      button {
+        cursor: pointer;
+        padding: 10px;
+      }
+      #result {
+        margin-top: 20px;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Hotel Booking Saga</h1>
+    <form id="bookingForm">
+      <input type="number" id="userId" placeholder="User ID" required />
+      <input type="number" id="hotelId" placeholder="Hotel ID" required />
+      <input
+        type="text"
+        id="dates"
+        placeholder="Dates (e.g., 2023-06-01,2023-06-05)"
+        required
+      />
+      <button type="submit">Book Hotel</button>
+    </form>
+    <div id="result"></div>
+
+    <script>
+      document
+        .getElementById("bookingForm")
+        .addEventListener("submit", async (e) => {
+          e.preventDefault();
+          const userId = document.getElementById("userId").value;
+          const hotelId = document.getElementById("hotelId").value;
+          const dates = document.getElementById("dates").value.split(",");
+
+          const response = await fetch("/api/book", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ userId, hotelId, dates }),
+          });
+
+          const result = await response.json();
+          document.getElementById("result").innerHTML = JSON.stringify(
+            result,
+            null,
+            2
+          );
+        });
+    </script>
+  </body>
+</html>

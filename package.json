@@ -1,0 +1,18 @@
+{
+  "name": "hotel-booking-saga",
+  "version": "1.0.0",
+  "description": "A microservice saga pattern implementation for a hotel booking app",
+  "scripts": {
+    "start": "concurrently \"npm run start:booking\" \"npm run start:payment\" \"npm run start:hotel\" \"npm run start:frontend\"",
+    "start:booking": "node services/booking-service/index.js",
+    "start:payment": "node services/payment-service/index.js",
+    "start:hotel": "node services/hotel-service/index.js",
+    "start:frontend": "node frontend/server.js"
+  },
+  "dependencies": {
+    "express": "^4.17.1",
+    "axios": "^0.21.1",
+    "body-parser": "^1.19.0",
+    "concurrently": "^6.2.0"
+  }
+}
